@@ -2,10 +2,12 @@
 #	twitch credentials
     HOST=live.twitch.tv/app/
     KEY=`cat .twitchkey` #twitchkey is a hidden text file with your streamkey 
-    
-avconv  -f video4linux2 -pix_fmt yuv422p -i /dev/video0 \ 
--r 30 -bufsize 1000k -b 4000k  -filter scale=iw/3:ih/3 \ 
--c:v libx264 -preset superfast \ 
+
+avconv  -f video4linux2 -pix_fmt yuv422p -i /dev/video0 \
+-force_key_frames:0 00:00:02 -an \
+-r 30 -bufsize 2M -b 2M -minrate 4M -maxrate 4M \
+-filter scale=w=iw*2/5:h=ih*2/5 \
+-c:v libx264 -preset superfast -tune animation \
 -f flv rtmp://$HOST/$KEY #rtpm protocol
 exit 0
 #/dev/video0 is the default v4l2 webcam ,choose correct device number
