@@ -1,11 +1,11 @@
 #!/bin/bash
 #	twitch credentials
-    HOST=live.twitch.tv/app/
+    HOST=live.twitch.tv/app
     KEY=`cat .twitchkey` #twitchkey is a hidden text file with your streamkey 
 
-avconv  -f video4linux2 -pix_fmt yuv422p -i /dev/video0 \
+ffmpeg  -f video4linux2 -pix_fmt yuv422p -i /dev/video0 \
 -force_key_frames:0 00:00:02 -an \
--r 30 -bufsize 2M -b 2M -minrate 4M -maxrate 4M \
+-r 30 -bufsize 2M -b:v 2M -minrate 4M -maxrate 4M \ #treaming video only fo now
 -filter scale=w=iw*2/5:h=ih*2/5 \
 -c:v libx264 -preset superfast -tune animation \
 -f flv rtmp://$HOST/$KEY #rtpm protocol
