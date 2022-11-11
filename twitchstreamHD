@@ -17,8 +17,8 @@ ffmpeg -f video4linux2 -framerate $FPS -i /dev/video0 \
 exit 0
 # video output 768x576 1280x720
 #/dev/video0 is the default v4l2 webcam ,chose correct device number
-#mandatory video codec for twitch is h264 or libx264 equivalent h264_omx issues won't be decoded under android
-# codecs libx264  h264_omx h264_v4l2m2m
+#mandatory video codec for twitch is h264 or libx264 equivalent 
+# codecs libx264  h264_omx 
 #bitrate 4M#
 
 
