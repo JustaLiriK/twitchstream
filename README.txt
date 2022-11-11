@@ -22,4 +22,4 @@ if you have a webcam connected you should see at least
 Start wtreaming:  
    `./twitchstream` (5 sec before it appears online)
 Stop Streaming :
-  CTRL+C 
+  q or CTRL+C 
