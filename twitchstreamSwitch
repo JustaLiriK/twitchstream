@@ -9,10 +9,10 @@ OUTRES="768x576"
 CODEC="libx264"
 PIX="yuvj422p"
 #video input  1280x720 yuvj422p
-ffmpeg -f pulse -i default -itsoffset 2 -f video4linux2 -framerate $FPS -i /dev/video0 \
+ffmpeg -f pulse -i default -itsoffset 1.6 -f video4linux2 -framerate $FPS -i /dev/video0 \
 -force_key_frames:0 00:00:02 \
 -bufsize $BUFF -b:v $BUFF -minrate $BUFF -maxrate $BUFF \
--c:v $CODEC -pix_fmt $PIX -preset superfast -tune zerolatency -s $OUTRES -g 30 \
+-c:v $CODEC -pix_fmt $PIX -preset ultrafast -tune zerolatency -s $OUTRES -g 30 \
 -c:a aac -b:a 128k -ac 2 -ar 44100 \
 -f flv rtmp://$HOST/$KEY #rtpm protocol
 exit 0
