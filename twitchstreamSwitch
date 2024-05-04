@@ -3,22 +3,20 @@
     HOST=live-mrs.twitch.tv/app
     KEY=`cat .twitchkey` #twitchkey is a hidden text file with your streamkey
 #stream specs#
-FPS="30"
+FPS="60"
 BUFF="4M"
-OUTRES="768x576"
-CODEC="libx264"
-PIX="yuvj422p"
+OUTRES="854x480"
+CODEC="h264_omx"
+PIX="yuv420p"
 #video input  1280x720 yuvj422p
-ffmpeg -f pulse -i default -itsoffset 1.6 -f video4linux2 -framerate $FPS -i /dev/video0 \
--force_key_frames:0 00:00:02 \
+ffmpeg -f pulse -i default -itsoffset 1.6 -f video4linux2 -framerate $FPS -i /dev/video0 -force_key_frames:0 00:00:02 \
 -bufsize $BUFF -b:v $BUFF -minrate $BUFF -maxrate $BUFF \
--c:v $CODEC -pix_fmt $PIX -preset ultrafast -tune zerolatency -s $OUTRES -g 30 \
+-c:v $CODEC -pix_fmt $PIX -r $FPS -g $FPS*2 -s $OUTRES \
 -c:a aac -b:a 128k -ac 2 -ar 44100 \
--f flv rtmp://$HOST/$KEY #rtpm protocol
+-f flv rtmp://$HOST/$KEY  # output to server
 exit 0
-# video output 768x576 1280x720
+# video output 768x576 854x480 1280x720
 #/dev/video0 is the default v4l2 webcam ,chose correct device number
 #mandatory video codec for twitch is h264 or libx264 equivalent
 # codecs libx264  h264_omx h264_v4l2m2m
-#bitrate 4M#
-
+#bitrate 4M rtmp protocol
